@@ -1,19 +1,21 @@
-// melco_instant_unlock.js — ANY "Subscribe" or "Renew" button = FREE SVIP + BRANDED
-if ($request.url.includes("purchase") || 
-    $request.url.includes("subscribe") || 
-    $request.url.includes("membership") || 
-    $request.url.includes("payment")) {
+// melco_instant_unlock.js - Click any VIP button → Instant Unlock
+// Put in your repo: https://raw.githubusercontent.com/YOURNAME/Blurrr-SVIP/main/melco_instant_unlock.js
 
-  let body = JSON.stringify({
-    "status": 0,
-    "is_svip": true,
-    "svip_expire": 4102444800,
-    "vip_expire": 4102444800,
-    "message": "Unlocked by Mel. Co",
-    "unlock_source": "Mel. Co Instant Unlock",
-    "unlocked_by": "Mel. Co",
-    "product_id": "com.tbps.blurrr.svip.permanent"
+if ($request.url.includes('purchase') || 
+    $request.url.includes('subscribe') || 
+    $request.url.includes('vip') || 
+    $request.url.includes('svip') || 
+    $request.url.includes('restore') || 
+    $request.url.includes('membership')) {
+
+  $done({
+    url: "https://buy.itunes.apple.com/verifyReceipt",
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({})
   });
-
-  $done({status: 200, headers: {"Content-Type": "application/json"}, body});
+} else {
+  $done({});
 }
